@@ -8,13 +8,10 @@ Este projeto é uma API construída usando **.NET, Entity Framework para o mapea
 
 ## Índice
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Authentication](#authentication)
-- [Database](#database)
-- [Contributing](#contributing)
+- [Instalação](#installation)
+- [Usos](#usage)
+- [Endpoints API](#api-endpoints)
+- [Banco de Dados](#database)
 
 ## Instalação
 
