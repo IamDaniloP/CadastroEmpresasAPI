@@ -47,8 +47,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                List<Companies> companies = _companiesService.getAllCompanies();
-                return Ok(companies);
+                List<Companies> companiesList = _companiesService.getAllCompanies();
+                return Ok(JsonSerializationHelper.SerializeObject(companiesList));
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 Companies companies = _companiesService.getCompanies(cnpj);
-                return Ok(companies);
+                return Ok(JsonSerializationHelper.SerializeObject(companies));
             }
             catch (Exception ex)
             {

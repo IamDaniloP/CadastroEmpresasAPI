@@ -10,5 +10,9 @@ namespace CadastrosEmpresas.API.Repositories.Interfaces
         public void deleteDepartment(int id);
         public Department getDepartment(int id);
         public List<Department> getAllDepartment();
+
+        public List<Employee> getEmployeesDepartmentId(int id);
+
+        public List<Model.Domain.Entities.Task> getTasksDepartmentId(int id);
     }
 }

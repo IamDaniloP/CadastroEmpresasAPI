@@ -49,7 +49,7 @@ namespace CadastrosEmpresas.API.Persistence
 
             modelBuilder.Entity<Model.Domain.Entities.Task>()
                 .HasIndex(t => t.TaskName)
-                .IsUnique();
+                .IsUnique(false);
 
             modelBuilder.Entity<EmployeeTask>()
             .HasKey(et => new { et.EmployeeId, et.TaskId });

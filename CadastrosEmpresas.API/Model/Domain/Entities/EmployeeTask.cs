@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using CadastrosEmpresas.API.Model.Dtos;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CadastrosEmpresas.API.Model.Domain.Entities
 {
@@ -14,10 +15,10 @@ namespace CadastrosEmpresas.API.Model.Domain.Entities
     
         public EmployeeTask() { }
 
-        public void MapFromDto(Guid taskId, Guid employeeId)
+        public void MapFromDto(EmployeeTaskDto employeeTaskDto)
         {
-            TaskId = taskId;
-            EmployeeId = employeeId;
+            TaskId = employeeTaskDto.TaskId;
+            EmployeeId = employeeTaskDto.EmployeeId;
         }
     }
 }

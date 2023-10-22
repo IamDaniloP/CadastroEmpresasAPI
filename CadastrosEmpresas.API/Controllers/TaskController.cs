@@ -49,7 +49,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 List<Model.Domain.Entities.Task> tasks = _taskService.getAllTask();
-                return Ok(tasks);
+                return Ok(JsonSerializationHelper.SerializeObject(tasks));
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 Model.Domain.Entities.Task task = _taskService.getTask(id);
-                return Ok(task);
+                return Ok(JsonSerializationHelper.SerializeObject(task));
             }
             catch (Exception ex)
             {
@@ -79,9 +79,8 @@ namespace CadastrosEmpresas.API.Controllers
                 if (_taskService.getTask(id) != null)
                 {
                     _taskService.updateTask(id, taskDto);
-                    return Ok("Update Department.");
                 }
-                return Ok("Update Department.");
+                return Ok("Update Task.");
             }
             catch (Exception ex)
             {

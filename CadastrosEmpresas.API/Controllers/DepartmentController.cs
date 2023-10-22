@@ -50,7 +50,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 List<Department> departments = _departmentService.getAllDepartment();
-                return Ok(departments);
+                return Ok(JsonSerializationHelper.SerializeObject(departments));
             }
             catch(Exception ex)
             {
@@ -64,7 +64,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 Department department = _departmentService.getDepartment(id);
-                return Ok(department);
+                return Ok(JsonSerializationHelper.SerializeObject(department));
             }
             catch(Exception ex)
             {
@@ -80,7 +80,6 @@ namespace CadastrosEmpresas.API.Controllers
                 if (_departmentService.getDepartment(id) != null)
                 {
                     _departmentService.updateDepartment(id, departmentDto);
-                    return Ok("Update Department.");
                 }
                 return Ok("Update Department.");
             }

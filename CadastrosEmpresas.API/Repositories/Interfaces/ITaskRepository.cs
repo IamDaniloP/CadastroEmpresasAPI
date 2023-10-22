@@ -11,5 +11,7 @@ namespace CadastrosEmpresas.API.Repositories.Interfaces
         public List<Model.Domain.Entities.Task> getAllTask();
 
         public Department getDepartment(int id);
+
+        public List<EmployeeTask> getEmployeeTaskTaskId(Guid taskId);
     }
 }

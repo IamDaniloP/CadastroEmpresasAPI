@@ -9,5 +9,9 @@ namespace CadastrosEmpresas.API.Repositories.Interfaces
         public void deleteCompanies(string cpnj);
         public Companies getCompanies(string cnpj);
         public List<Companies> getAllCompanies();
+
+        public List<Department> getDepartmentCnpj(string cnpj);
+        
+        public List<Employee> getEmployeeCnpj(string cnpj);
     }
 }

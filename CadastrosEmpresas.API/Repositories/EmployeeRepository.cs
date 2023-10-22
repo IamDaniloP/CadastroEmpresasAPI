@@ -31,7 +31,14 @@ namespace CadastrosEmpresas.API.Repositories
 
         public List<Employee> getAllEmployees()
         {
-            return _connectionContext.Employees.ToList();
+            var employees = _connectionContext.Employees.ToList();
+
+            foreach (Employee employee in employees)
+            {
+                employee.EmployeeTasks = getEmployeeTaskEmployeeId(employee.Id);
+            }
+
+            return employees;
         }
 
         public Companies getCompanies(string cnpj)
@@ -46,7 +53,20 @@ namespace CadastrosEmpresas.API.Repositories
 
         public Employee getEmployee(Guid id)
         {
-            return _connectionContext.Employees.Find(id);
+            Employee employee = _connectionContext.Employees.Find(id);
+
+            employee.EmployeeTasks = getEmployeeTaskEmployeeId(id);
+
+            return employee;
+        }
+
+        public List<EmployeeTask> getEmployeeTaskEmployeeId(Guid employeeId)
+        {
+            var employeeTasks = _connectionContext.EmployeesTask
+                .Where(et => et.EmployeeId == employeeId)
+                .ToList();
+
+            return employeeTasks;
         }
 
         public void updateEmployee(Employee employee)

@@ -1,4 +1,5 @@
-﻿using CadastrosEmpresas.API.Persistence;
+﻿using CadastrosEmpresas.API.Model.Domain.Entities;
+using CadastrosEmpresas.API.Persistence;
 using CadastrosEmpresas.API.Repositories.Interfaces;
 
 namespace CadastrosEmpresas.API.Repositories
@@ -30,12 +31,43 @@ namespace CadastrosEmpresas.API.Repositories
 
         public List<Companies> getAllCompanies()
         {
-            return _connectionContext.Companies.ToList();
+            var campaniesList = _connectionContext.Companies.ToList();
+
+            foreach (Companies companies in campaniesList)
+            {
+                companies.Departments = getDepartmentCnpj(companies.CNPJ);
+                companies.Employees = getEmployeeCnpj(companies.CNPJ);
+            }
+
+            return campaniesList;
         }
 
         public Companies getCompanies(string cnpj)
         {
-            return _connectionContext.Companies.Find(cnpj);
+            Companies companies = _connectionContext.Companies.Find(cnpj);
+
+            companies.Departments = getDepartmentCnpj(cnpj);
+            companies.Employees = getEmployeeCnpj(cnpj);
+
+            return companies;
+        }
+
+        public List<Department> getDepartmentCnpj(string cnpj)
+        {
+            var departments = _connectionContext.Departments
+                .Where(d => d.CompaniesCNPJ == cnpj)
+                .ToList();
+
+            return departments;
+        }
+
+        public List<Employee> getEmployeeCnpj(string cnpj)
+        {
+            var employees = _connectionContext.Employees
+                .Where(e => e.CompaniesCNPJ == cnpj)
+                .ToList();
+
+            return employees;
         }
 
         public void updateCompanies(Companies companies)

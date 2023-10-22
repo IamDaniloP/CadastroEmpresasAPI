@@ -49,8 +49,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                List<Employee> employee = _employeeService.getAllEmployees();
-                return Ok(employee);
+                List<Employee> employees = _employeeService.getAllEmployees();
+                return Ok(JsonSerializationHelper.SerializeObject(employees));
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 Employee employee = _employeeService.getEmployee(id);
-                return Ok(employee);
+                return Ok(JsonSerializationHelper.SerializeObject(employee));
             }
             catch (Exception ex)
             {
@@ -80,9 +80,8 @@ namespace CadastrosEmpresas.API.Controllers
                 if (_employeeService.getEmployee(id) != null)
                 {
                     _employeeService.updateEmployee(id, employeeDto);
-                    return Ok("Update Department.");
                 }
-                return Ok("Update Department.");
+                return Ok("Update Employee.");
             }
             catch (Exception ex)
             {

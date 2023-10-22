@@ -31,7 +31,15 @@ namespace CadastrosEmpresas.API.Repositories
 
         public List<Department> getAllDepartment()
         {
-            return _connectionContext.Departments.ToList();
+            var departments = _connectionContext.Departments.ToList();
+
+            foreach (Department department in departments)
+            {
+                department.Employees = getEmployeesDepartmentId(department.Id);
+                department.Tasks = getTasksDepartmentId(department.Id);
+            }
+
+            return departments;
         }
 
         public Companies getCompanies(string cnpj)
@@ -41,7 +49,30 @@ namespace CadastrosEmpresas.API.Repositories
 
         public Department getDepartment(int id)
         {
-            return _connectionContext.Departments.Find(id);
+            Department department = _connectionContext.Departments.Find(id);
+
+            department.Employees = getEmployeesDepartmentId(department.Id);
+            department.Tasks = getTasksDepartmentId(department.Id);
+
+            return department;
+        }
+
+        public List<Employee> getEmployeesDepartmentId(int id)
+        {
+            var employees = _connectionContext.Employees
+                .Where(e => e.DepartmentId == id)
+                .ToList();
+
+            return employees;
+        }
+
+        public List<Model.Domain.Entities.Task> getTasksDepartmentId(int id)
+        {
+            var tasks = _connectionContext.Tasks
+                .Where(t => t.DepartmentId == id)
+                .ToList();
+
+            return tasks;
         }
 
         public void updateDepartment(Department department)
