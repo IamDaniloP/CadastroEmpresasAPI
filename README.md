@@ -16,7 +16,7 @@ Este projeto é uma API construída usando **.NET, Entity Framework para o mapea
 - [Database](#database)
 - [Contributing](#contributing)
 
-## Installation
+## Instalação
 
 1. Clone o repositório:
 
