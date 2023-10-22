@@ -67,8 +67,12 @@ namespace CadastrosEmpresas.API.Services
 
             if (existingEmployee != null)
             {
+                employeeDto.CPF = employeeDto.CPF.Replace(".", "");
+                employeeDto.CPF = employeeDto.CPF.Replace("-", "");
+
                 employeeDto.CompaniesCNPJ = existingEmployee.CompaniesCNPJ;
                 employeeDto.DepartmentId = existingEmployee.DepartmentId;
+                //employeeDto.CPF = existingEmployee.CPF; -> só irá permitir caso o cpf ainda permaneça o mesmo
                 existingEmployee.MapFromDto(employeeDto);
                 _employeeRepository.updateEmployee(existingEmployee);
             }

@@ -35,6 +35,8 @@ namespace CadastrosEmpresas.API.Repositories
 
             foreach (Employee employee in employees)
             {
+                //employee.Companies = getCompanies(employee.CompaniesCNPJ);
+                //employee.Department = getDepartment(employee.DepartmentId);
                 employee.EmployeeTasks = getEmployeeTaskEmployeeId(employee.Id);
             }
 
@@ -54,8 +56,13 @@ namespace CadastrosEmpresas.API.Repositories
         public Employee getEmployee(Guid id)
         {
             Employee employee = _connectionContext.Employees.Find(id);
-
-            employee.EmployeeTasks = getEmployeeTaskEmployeeId(id);
+            
+            if (employee != null)
+            {
+                //employee.Companies = getCompanies(employee.CompaniesCNPJ);
+                //employee.Department = getDepartment(employee.DepartmentId);
+                employee.EmployeeTasks = getEmployeeTaskEmployeeId(id);
+            }
 
             return employee;
         }
