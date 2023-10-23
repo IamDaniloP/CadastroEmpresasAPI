@@ -1,5 +1,6 @@
 ﻿using CadastrosEmpresas.API.Model.Domain.Entities;
 using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.DepartmentReturnDtos;
 using CadastrosEmpresas.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,8 +50,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                List<Department> departments = _departmentService.getAllDepartment();
-                return Ok(JsonSerializationHelper.SerializeObject(departments));
+                List<EntityDepartmentReturnDto> departments = _departmentService.getAllDepartment();
+                return Ok(departments);
             }
             catch(Exception ex)
             {
@@ -63,8 +64,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                Department department = _departmentService.getDepartment(id);
-                return Ok(JsonSerializationHelper.SerializeObject(department));
+                EntityDepartmentReturnDto department = _departmentService.getDepartment(id);
+                return Ok(department);
             }
             catch(Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos;
 using CadastrosEmpresas.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,8 +50,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                List<Employee> employees = _employeeService.getAllEmployees();
-                return Ok(JsonSerializationHelper.SerializeObject(employees));
+                List<EntityEmployeeReturnDto> employees = _employeeService.getAllEmployees();
+                return Ok(employees);
             }
             catch (Exception ex)
             {
@@ -63,8 +64,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                Employee employee = _employeeService.getEmployee(id);
-                return Ok(JsonSerializationHelper.SerializeObject(employee));
+                EntityEmployeeReturnDto employee = _employeeService.getEmployee(id);
+                return Ok(employee);
             }
             catch (Exception ex)
             {

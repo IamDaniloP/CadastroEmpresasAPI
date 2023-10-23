@@ -1,4 +1,7 @@
-﻿using CadastrosEmpresas.API.Model.Dtos;
+﻿using CadastrosEmpresas.API.Model.Domain.Entities;
+using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeTaskReturnDtos;
 using CadastrosEmpresas.API.Repositories.Interfaces;
 using CadastrosEmpresas.API.Services.Interfaces;
 
@@ -47,16 +50,61 @@ namespace CadastrosEmpresas.API.Services
             }
         }
 
-        public List<Employee> getAllEmployees()
+        public List<EntityEmployeeReturnDto> getAllEmployees()
         {
-            return _employeeRepository.getAllEmployees();
+            List<Employee> employeeList = _employeeRepository.getAllEmployees();
+
+            List<EntityEmployeeReturnDto> employeeReturnList = new List<EntityEmployeeReturnDto>();
+
+            foreach (Employee employeeItem in employeeList)
+            {
+                List<EmployeeTaskFromEmployeeReturnDto> employeeTaskFromEmployeeList = new List<EmployeeTaskFromEmployeeReturnDto>();
+                EntityEmployeeReturnDto entityEmployeeReturnItem = new EntityEmployeeReturnDto();
+
+                employeeItem.Companies = _employeeRepository.getCompanies(employeeItem.CompaniesCNPJ);
+                employeeItem.Department = _employeeRepository.getDepartment(employeeItem.DepartmentId);
+                entityEmployeeReturnItem.MapFromEntityReturnDto(employeeItem);
+
+                foreach (EmployeeTask employeeTaskItem in employeeItem.EmployeeTasks)
+                {
+                    EmployeeTaskFromEmployeeReturnDto employeeTaskfromEmployeeReturnItem = new EmployeeTaskFromEmployeeReturnDto();
+
+                    employeeTaskfromEmployeeReturnItem.MapFromReturnDto(employeeTaskItem);
+                    employeeTaskFromEmployeeList.Add(employeeTaskfromEmployeeReturnItem);
+                }
+
+                entityEmployeeReturnItem.EmployeeTasks = employeeTaskFromEmployeeList;
+                employeeReturnList.Add(entityEmployeeReturnItem);
+            }
+
+            return employeeReturnList;
         }
 
-        public Employee getEmployee(Guid id)
+        public EntityEmployeeReturnDto getEmployee(Guid id)
         {
             if (_employeeRepository.getEmployee(id) != null)
             {
-                return _employeeRepository.getEmployee(id);
+                Employee employee = _employeeRepository.getEmployee(id);
+
+                EntityEmployeeReturnDto entityEmployeeReturn = new EntityEmployeeReturnDto();
+
+                List<EmployeeTaskFromEmployeeReturnDto> employeeTaskFromEmployeeList = new List<EmployeeTaskFromEmployeeReturnDto>();
+
+                employee.Companies = _employeeRepository.getCompanies(employee.CompaniesCNPJ);
+                employee.Department = _employeeRepository.getDepartment(employee.DepartmentId);
+                entityEmployeeReturn.MapFromEntityReturnDto(employee);
+
+                foreach (EmployeeTask employeeTaskItem in employee.EmployeeTasks)
+                {
+                    EmployeeTaskFromEmployeeReturnDto employeeTaskfromEmployeeReturnItem = new EmployeeTaskFromEmployeeReturnDto();
+
+                    employeeTaskfromEmployeeReturnItem.MapFromReturnDto(employeeTaskItem);
+                    employeeTaskFromEmployeeList.Add(employeeTaskfromEmployeeReturnItem);
+                }
+
+                entityEmployeeReturn.EmployeeTasks = employeeTaskFromEmployeeList;
+
+                return entityEmployeeReturn;
             }
             throw new Exception("Department not found.");
         }

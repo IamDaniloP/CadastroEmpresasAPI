@@ -1,4 +1,7 @@
-﻿using CadastrosEmpresas.API.Model.Dtos;
+﻿using CadastrosEmpresas.API.Model.Domain.Entities;
+using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeTaskReturnDtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.TaskReturnDtos;
 using CadastrosEmpresas.API.Repositories.Interfaces;
 using CadastrosEmpresas.API.Services.Interfaces;
 
@@ -39,16 +42,58 @@ namespace CadastrosEmpresas.API.Services
             }
         }
 
-        public List<Model.Domain.Entities.Task> getAllTask()
+        public List<EntityTaskReturnDto> getAllTask()
         {
-            return _taskRepository.getAllTask();
+            List<Model.Domain.Entities.Task> taskList = _taskRepository.getAllTask();
+            List<EntityTaskReturnDto> entityTaskReturnList = new List<EntityTaskReturnDto>();
+
+            foreach (Model.Domain.Entities.Task taskItem in taskList)
+            {
+                List<EmployeeTaskFromTaskReturnDto> employeeTaskFromTaskReturnList = new List<EmployeeTaskFromTaskReturnDto>();
+                EntityTaskReturnDto entityTaskReturnItem = new EntityTaskReturnDto();
+
+                taskItem.Department = _taskRepository.getDepartment(taskItem.DepartmentId);
+                entityTaskReturnItem.MapFromEntityReturnDto(taskItem);
+
+                foreach (EmployeeTask employeeTaskItem in taskItem.EmployeeTasks)
+                {
+                    EmployeeTaskFromTaskReturnDto employeeTaskFromTaskReturnItem = new EmployeeTaskFromTaskReturnDto();
+
+                    employeeTaskFromTaskReturnItem.MapFromReturnDto(employeeTaskItem);
+                    employeeTaskFromTaskReturnList.Add(employeeTaskFromTaskReturnItem);
+                }
+
+                entityTaskReturnItem.EmployeeTasks = employeeTaskFromTaskReturnList;
+                entityTaskReturnList.Add(entityTaskReturnItem);
+            }
+
+            return entityTaskReturnList;
         }
 
-        public Model.Domain.Entities.Task getTask(Guid id)
+        public EntityTaskReturnDto getTask(Guid id)
         {
             if (_taskRepository.getTask(id) != null)
             {
-                return _taskRepository.getTask(id);
+                Model.Domain.Entities.Task task = _taskRepository.getTask(id);
+
+                EntityTaskReturnDto entityTaskReturn = new EntityTaskReturnDto();
+
+                List<EmployeeTaskFromTaskReturnDto> employeeTaskFromTaskReturnList = new List<EmployeeTaskFromTaskReturnDto>();
+                
+                task.Department = _taskRepository.getDepartment(task.DepartmentId);
+                entityTaskReturn.MapFromEntityReturnDto(task);
+
+                foreach (EmployeeTask employeeTaskItem in task.EmployeeTasks)
+                {
+                    EmployeeTaskFromTaskReturnDto employeeTaskFromTaskItem = new EmployeeTaskFromTaskReturnDto();
+
+                    employeeTaskFromTaskItem.MapFromReturnDto(employeeTaskItem);
+                    employeeTaskFromTaskReturnList.Add(employeeTaskFromTaskItem);
+                }
+
+                entityTaskReturn.EmployeeTasks = employeeTaskFromTaskReturnList;
+
+                return entityTaskReturn;
             }
             throw new Exception("Task not found.");
         }

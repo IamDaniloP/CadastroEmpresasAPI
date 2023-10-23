@@ -1,4 +1,5 @@
 ﻿using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos;
 
 namespace CadastrosEmpresas.API.Services.Interfaces
 {
@@ -7,7 +8,7 @@ namespace CadastrosEmpresas.API.Services.Interfaces
         public void createEmployee(EmployeeDto employeeDto);
         public void updateEmployee(Guid id, EmployeeDto employeeDto);
         public void deleteEmployee(Guid id);
-        public Employee getEmployee(Guid id);
-        public List<Employee> getAllEmployees();
+        public EntityEmployeeReturnDto getEmployee(Guid id);
+        public List<EntityEmployeeReturnDto> getAllEmployees();
     }
 }

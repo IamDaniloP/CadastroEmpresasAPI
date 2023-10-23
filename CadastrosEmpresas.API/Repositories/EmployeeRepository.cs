@@ -35,8 +35,6 @@ namespace CadastrosEmpresas.API.Repositories
 
             foreach (Employee employee in employees)
             {
-                //employee.Companies = getCompanies(employee.CompaniesCNPJ);
-                //employee.Department = getDepartment(employee.DepartmentId);
                 employee.EmployeeTasks = getEmployeeTaskEmployeeId(employee.Id);
             }
 
@@ -59,8 +57,6 @@ namespace CadastrosEmpresas.API.Repositories
             
             if (employee != null)
             {
-                //employee.Companies = getCompanies(employee.CompaniesCNPJ);
-                //employee.Department = getDepartment(employee.DepartmentId);
                 employee.EmployeeTasks = getEmployeeTaskEmployeeId(id);
             }
 

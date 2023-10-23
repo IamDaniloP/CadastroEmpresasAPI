@@ -1,4 +1,5 @@
 ﻿using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.CompaniesReturnDtos;
 using CadastrosEmpresas.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,8 +48,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                List<Companies> companiesList = _companiesService.getAllCompanies();
-                return Ok(JsonSerializationHelper.SerializeObject(companiesList));
+                List<EntityCompaniesReturnDto> companiesList = _companiesService.getAllCompanies();
+                return Ok(companiesList);
             }
             catch (Exception ex)
             {
@@ -62,7 +63,7 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                Companies companies = _companiesService.getCompanies(cnpj);
+                EntityCompaniesReturnDto companies = _companiesService.getCompanies(cnpj);
                 return Ok(JsonSerializationHelper.SerializeObject(companies));
             }
             catch (Exception ex)

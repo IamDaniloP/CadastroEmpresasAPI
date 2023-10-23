@@ -1,4 +1,5 @@
 ﻿using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.TaskReturnDtos;
 using CadastrosEmpresas.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,8 +49,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                List<Model.Domain.Entities.Task> tasks = _taskService.getAllTask();
-                return Ok(JsonSerializationHelper.SerializeObject(tasks));
+                List<EntityTaskReturnDto> tasks = _taskService.getAllTask();
+                return Ok(tasks);
             }
             catch (Exception ex)
             {
@@ -62,8 +63,8 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                Model.Domain.Entities.Task task = _taskService.getTask(id);
-                return Ok(JsonSerializationHelper.SerializeObject(task));
+                EntityTaskReturnDto task = _taskService.getTask(id);
+                return Ok(task);
             }
             catch (Exception ex)
             {
