@@ -46,9 +46,12 @@ namespace CadastrosEmpresas.API.Repositories
         {
             Companies companies = _connectionContext.Companies.Find(cnpj);
 
-            companies.Departments = getDepartmentCnpj(cnpj);
-            companies.Employees = getEmployeeCnpj(cnpj);
-
+            if (companies != null)
+            {
+                companies.Departments = getDepartmentCnpj(cnpj);
+                companies.Employees = getEmployeeCnpj(cnpj);
+            }
+            
             return companies;
         }
 
