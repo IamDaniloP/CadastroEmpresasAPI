@@ -1,5 +1,6 @@
 ﻿using CadastrosEmpresas.API.Model.Domain.Entities;
 using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeTaskReturnDtos;
 using CadastrosEmpresas.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 _employeeTaskService.createEmployeeTask(employeeTaskDto);
-                return Ok("EmployeeTask created.");
+                return Ok("Assignment of the task to the employee created.");
             }
             catch (Exception ex)
             {
@@ -49,7 +50,7 @@ namespace CadastrosEmpresas.API.Controllers
         {
             try
             {
-                EmployeeTask employeeTask = _employeeTaskService.getEmployeeTask(taskId, employeeId);
+                EntityEmployeeTaskReturnDto employeeTask = _employeeTaskService.getEmployeeTask(taskId, employeeId);
                 return Ok(employeeTask);
             }
             catch (Exception ex)

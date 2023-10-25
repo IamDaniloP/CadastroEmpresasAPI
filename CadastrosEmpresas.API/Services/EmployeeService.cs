@@ -24,13 +24,22 @@ namespace CadastrosEmpresas.API.Services
             formatCpf = formatCpf.Replace(".", "");
             formatCpf = formatCpf.Replace("-", "");
 
-            if (_employeeRepository.getCompanies(employeeDto.CompaniesCNPJ) != null
-                && _employeeRepository.getDepartment(employeeDto.DepartmentId) != null)
+            Companies companies = _employeeRepository.getCompanies(employeeDto.CompaniesCNPJ);
+            Department department = _employeeRepository.getDepartment(employeeDto.DepartmentId);
+
+            if (companies != null && department != null)
             {
-                Employee employee = new Employee();
-                employeeDto.CPF = formatCpf;
-                employee.MapFromDto(employeeDto);
-                _employeeRepository.createEmployee(employee);
+                if (companies.CNPJ == department.CompaniesCNPJ)
+                {
+                    Employee employee = new Employee();
+                    employeeDto.CPF = formatCpf;
+                    employee.MapFromDto(employeeDto);
+                    _employeeRepository.createEmployee(employee);
+                } 
+                else
+                {
+                    throw new Exception("Department don't exist in company registred");
+                }
             } 
             else 
             {

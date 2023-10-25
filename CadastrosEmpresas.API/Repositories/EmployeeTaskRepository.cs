@@ -30,9 +30,19 @@ namespace CadastrosEmpresas.API.Repositories
             }
         }
 
+        public Employee getEmployee(Guid employeeId)
+        {
+            return _connectionContext.Employees.Find(employeeId);
+        }
+
         public EmployeeTask getEmployeeTask(Guid taskId, Guid employeeId)
         {
             return _connectionContext.EmployeesTask.FirstOrDefault(key => key.TaskId == taskId && key.EmployeeId == employeeId);
+        }
+
+        public Model.Domain.Entities.Task GetTask(Guid taskId)
+        {
+            return _connectionContext.Tasks.Find(taskId);
         }
     }
 }

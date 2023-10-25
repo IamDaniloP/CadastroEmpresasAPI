@@ -1,5 +1,6 @@
 ﻿using CadastrosEmpresas.API.Model.Domain.Entities;
 using CadastrosEmpresas.API.Model.Dtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeTaskReturnDtos;
 using CadastrosEmpresas.API.Repositories.Interfaces;
 using CadastrosEmpresas.API.Services.Interfaces;
 
@@ -16,17 +17,26 @@ namespace CadastrosEmpresas.API.Services
 
         public void createEmployeeTask(EmployeeTaskDto employeeTaskDto)
         {
-            try
+            Employee employee = _employeeTaskRepository.getEmployee(employeeTaskDto.EmployeeId);
+            Model.Domain.Entities.Task task = _employeeTaskRepository.GetTask(employeeTaskDto.TaskId);
+
+            if (employee != null && task != null)
             {
-                EmployeeTask employeeTask = new EmployeeTask();
-                employeeTask.MapFromDto(employeeTaskDto);
-                _employeeTaskRepository.createEmployeeTask(employeeTask);
+                if (employee.DepartmentId == task.DepartmentId)
+                {
+                    EmployeeTask employeeTask = new EmployeeTask();
+                    employeeTask.MapFromDto(employeeTaskDto);
+                    _employeeTaskRepository.createEmployeeTask(employeeTask);
+                }
+                else
+                {
+                    throw new Exception("Employee and Task don't belong to the same department.");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception($"Employee or Task not found:\n{ex.Message}");
+                throw new Exception("Employee or Task not found");
             }
-            
         }
 
         public void deleteEmployeeTask(Guid taskId, Guid employeeId)
@@ -41,15 +51,24 @@ namespace CadastrosEmpresas.API.Services
             }
         }
 
-        public EmployeeTask getEmployeeTask(Guid taskId, Guid employeeId)
+        public EntityEmployeeTaskReturnDto getEmployeeTask(Guid taskId, Guid employeeId)
         {
-            if (_employeeTaskRepository.getEmployeeTask(taskId, employeeId) != null)
+            EmployeeTask employeeTask = _employeeTaskRepository.getEmployeeTask(taskId, employeeId);
+
+            if (employeeTask != null)
             {
-                return _employeeTaskRepository.getEmployeeTask(taskId, employeeId);
+                EntityEmployeeTaskReturnDto entityEmployeeTaskReturnDto = new EntityEmployeeTaskReturnDto();
+
+                Model.Domain.Entities.Task task = _employeeTaskRepository.GetTask(taskId);
+                Employee employee = _employeeTaskRepository.getEmployee(employeeId);
+
+                entityEmployeeTaskReturnDto.MapFromEntityReturnDto(task, employee);
+
+                return entityEmployeeTaskReturnDto;
             }
             else
             {
-                throw new Exception("EmployeeTask not fund");
+                throw new Exception("Employee or Task not found.");
             }
         }
     }

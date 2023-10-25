@@ -67,7 +67,12 @@ namespace CadastrosEmpresas.API.Repositories
         {
             Employee employeeCpf = _connectionContext.Employees
                 .Where(e => e.CPF == cpf)
-                .First();
+                .SingleOrDefault();
+
+            if (employeeCpf != null)
+            {
+                employeeCpf.EmployeeTasks = getEmployeeTaskEmployeeId(employeeCpf.Id);
+            }
 
             return employeeCpf;
         }
