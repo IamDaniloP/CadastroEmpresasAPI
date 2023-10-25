@@ -1,5 +1,6 @@
-# Observação: Regras para Atualização de Objetos
-
+# Observação:
+  - As chaves únicas dos objetos serão representadas entre {} ao lado das suas respectivas entidades.
+  
 ## Companies - {cnpj}
 
 - Ao realizar a criação da empresa, é necessário um CNPJ válido e único.
