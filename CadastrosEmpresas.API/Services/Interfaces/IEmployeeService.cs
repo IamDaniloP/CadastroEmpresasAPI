@@ -9,6 +9,7 @@ namespace CadastrosEmpresas.API.Services.Interfaces
         public void updateEmployee(Guid id, EmployeeDto employeeDto);
         public void deleteEmployee(Guid id);
         public EntityEmployeeReturnDto getEmployee(Guid id);
+        public EntityEmployeeReturnDto getEmployeeCpf(string cpf);
         public List<EntityEmployeeReturnDto> getAllEmployees();
     }
 }

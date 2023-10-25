@@ -73,6 +73,20 @@ namespace CadastrosEmpresas.API.Controllers
             }
         }
 
+        [HttpGet("cpf/{cpf}")]
+        public IActionResult getEmployeeCpf(string cpf)
+        {
+            try
+            {
+                EntityEmployeeReturnDto employee = _employeeService.getEmployeeCpf(cpf);
+                return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPut("{id}")]
         public IActionResult updateDepartment(Guid id, [FromBody] EmployeeDto employeeDto)
         {

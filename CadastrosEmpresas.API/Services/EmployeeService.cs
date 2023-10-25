@@ -106,7 +106,36 @@ namespace CadastrosEmpresas.API.Services
 
                 return entityEmployeeReturn;
             }
-            throw new Exception("Department not found.");
+            throw new Exception("Employee not found.");
+        }
+
+        public EntityEmployeeReturnDto getEmployeeCpf(string cpf)
+        {
+            if (_employeeRepository.getEmployeeCpf(cpf) != null)
+            {
+                Employee employee = _employeeRepository.getEmployeeCpf(cpf);
+
+                EntityEmployeeReturnDto entityEmployeeReturn = new EntityEmployeeReturnDto();
+
+                List<EmployeeTaskFromEmployeeReturnDto> employeeTaskFromEmployeeList = new List<EmployeeTaskFromEmployeeReturnDto>();
+
+                employee.Companies = _employeeRepository.getCompanies(employee.CompaniesCNPJ);
+                employee.Department = _employeeRepository.getDepartment(employee.DepartmentId);
+                entityEmployeeReturn.MapFromEntityReturnDto(employee);
+
+                foreach (EmployeeTask employeeTaskItem in employee.EmployeeTasks)
+                {
+                    EmployeeTaskFromEmployeeReturnDto employeeTaskfromEmployeeReturnItem = new EmployeeTaskFromEmployeeReturnDto();
+
+                    employeeTaskfromEmployeeReturnItem.MapFromReturnDto(employeeTaskItem);
+                    employeeTaskFromEmployeeList.Add(employeeTaskfromEmployeeReturnItem);
+                }
+
+                entityEmployeeReturn.EmployeeTasks = employeeTaskFromEmployeeList;
+
+                return entityEmployeeReturn;
+            }
+            throw new Exception("Employee not found.");
         }
 
         public void updateEmployee(Guid id, EmployeeDto employeeDto)
@@ -126,7 +155,7 @@ namespace CadastrosEmpresas.API.Services
             }
             else
             {
-                throw new Exception("Department not found!");
+                throw new Exception("Employee not found!");
             }
         }
     }
