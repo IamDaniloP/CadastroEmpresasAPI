@@ -48,11 +48,12 @@ namespace CadastrosEmpresas.API.Services
             List<Department> departmentList = _departmentRepository.getAllDepartment();
 
             List<EntityDepartmentReturnDto> entityDepartmentReturnList = new List<EntityDepartmentReturnDto>();
-            List<EmployeeReturnDto> employeeReturnList = new List<EmployeeReturnDto>();
-            List<TaskReturnDto> taskReturnList = new List<TaskReturnDto>();
 
             foreach (Department departmentItem in departmentList)
             {
+                List<EmployeeReturnDto> employeeReturnList = new List<EmployeeReturnDto>();
+                List<TaskReturnDto> taskReturnList = new List<TaskReturnDto>();
+
                 EntityDepartmentReturnDto entityDepartmentReturnItem = new EntityDepartmentReturnDto();
                 departmentItem.Companies = _departmentRepository.getCompanies(departmentItem.CompaniesCNPJ);
                 entityDepartmentReturnItem.MapFromEntityReturnDto(departmentItem);
