@@ -1,5 +1,4 @@
-﻿using CadastrosEmpresas.API.Model.Domain.Entities;
-using CadastrosEmpresas.API.Model.Dtos;
+﻿using CadastrosEmpresas.API.Model.Dtos;
 using CadastrosEmpresas.API.Model.ReturnDtos.DepartmentReturnDtos;
 
 namespace CadastrosEmpresas.API.Services.Interfaces

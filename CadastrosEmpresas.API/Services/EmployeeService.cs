@@ -1,7 +1,7 @@
 ﻿using CadastrosEmpresas.API.Model.Domain.Entities;
 using CadastrosEmpresas.API.Model.Dtos;
 using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos;
-using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeTaskReturnDtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.TaskReturnDtos;
 using CadastrosEmpresas.API.Repositories.Interfaces;
 using CadastrosEmpresas.API.Services.Interfaces;
 
@@ -67,7 +67,7 @@ namespace CadastrosEmpresas.API.Services
 
             foreach (Employee employeeItem in employeeList)
             {
-                List<EmployeeTaskFromEmployeeReturnDto> employeeTaskFromEmployeeList = new List<EmployeeTaskFromEmployeeReturnDto>();
+                List<TaskReturnDto> taskReturnList = new List<TaskReturnDto>();
                 EntityEmployeeReturnDto entityEmployeeReturnItem = new EntityEmployeeReturnDto();
 
                 employeeItem.Companies = _employeeRepository.getCompanies(employeeItem.CompaniesCNPJ);
@@ -76,13 +76,14 @@ namespace CadastrosEmpresas.API.Services
 
                 foreach (EmployeeTask employeeTaskItem in employeeItem.EmployeeTasks)
                 {
-                    EmployeeTaskFromEmployeeReturnDto employeeTaskfromEmployeeReturnItem = new EmployeeTaskFromEmployeeReturnDto();
+                    TaskReturnDto taskReturnItem = new TaskReturnDto();
+                    Model.Domain.Entities.Task task = _employeeRepository.getTask(employeeTaskItem.TaskId);
 
-                    employeeTaskfromEmployeeReturnItem.MapFromReturnDto(employeeTaskItem);
-                    employeeTaskFromEmployeeList.Add(employeeTaskfromEmployeeReturnItem);
+                    taskReturnItem.MapFromReturnDto(task);
+                    taskReturnList.Add(taskReturnItem);
                 }
 
-                entityEmployeeReturnItem.EmployeeTasks = employeeTaskFromEmployeeList;
+                entityEmployeeReturnItem.EmployeeTasks = taskReturnList;
                 employeeReturnList.Add(entityEmployeeReturnItem);
             }
 
@@ -97,7 +98,7 @@ namespace CadastrosEmpresas.API.Services
 
                 EntityEmployeeReturnDto entityEmployeeReturn = new EntityEmployeeReturnDto();
 
-                List<EmployeeTaskFromEmployeeReturnDto> employeeTaskFromEmployeeList = new List<EmployeeTaskFromEmployeeReturnDto>();
+                List<TaskReturnDto> taskReturnList = new List<TaskReturnDto>();
 
                 employee.Companies = _employeeRepository.getCompanies(employee.CompaniesCNPJ);
                 employee.Department = _employeeRepository.getDepartment(employee.DepartmentId);
@@ -105,13 +106,14 @@ namespace CadastrosEmpresas.API.Services
 
                 foreach (EmployeeTask employeeTaskItem in employee.EmployeeTasks)
                 {
-                    EmployeeTaskFromEmployeeReturnDto employeeTaskfromEmployeeReturnItem = new EmployeeTaskFromEmployeeReturnDto();
-
-                    employeeTaskfromEmployeeReturnItem.MapFromReturnDto(employeeTaskItem);
-                    employeeTaskFromEmployeeList.Add(employeeTaskfromEmployeeReturnItem);
+                    TaskReturnDto taskReturnItem = new TaskReturnDto();
+                    Model.Domain.Entities.Task task = _employeeRepository.getTask(employeeTaskItem.TaskId);
+                    
+                    taskReturnItem.MapFromReturnDto(task);
+                    taskReturnList.Add(taskReturnItem);
                 }
 
-                entityEmployeeReturn.EmployeeTasks = employeeTaskFromEmployeeList;
+                entityEmployeeReturn.EmployeeTasks = taskReturnList;
 
                 return entityEmployeeReturn;
             }
@@ -126,7 +128,7 @@ namespace CadastrosEmpresas.API.Services
 
                 EntityEmployeeReturnDto entityEmployeeReturn = new EntityEmployeeReturnDto();
 
-                List<EmployeeTaskFromEmployeeReturnDto> employeeTaskFromEmployeeList = new List<EmployeeTaskFromEmployeeReturnDto>();
+                List<TaskReturnDto> taskReturnList = new List<TaskReturnDto>();
 
                 employee.Companies = _employeeRepository.getCompanies(employee.CompaniesCNPJ);
                 employee.Department = _employeeRepository.getDepartment(employee.DepartmentId);
@@ -134,13 +136,14 @@ namespace CadastrosEmpresas.API.Services
 
                 foreach (EmployeeTask employeeTaskItem in employee.EmployeeTasks)
                 {
-                    EmployeeTaskFromEmployeeReturnDto employeeTaskfromEmployeeReturnItem = new EmployeeTaskFromEmployeeReturnDto();
+                    TaskReturnDto taskReturnItem = new TaskReturnDto();
+                    Model.Domain.Entities.Task task = _employeeRepository.getTask(employeeTaskItem.TaskId);
 
-                    employeeTaskfromEmployeeReturnItem.MapFromReturnDto(employeeTaskItem);
-                    employeeTaskFromEmployeeList.Add(employeeTaskfromEmployeeReturnItem);
+                    taskReturnItem.MapFromReturnDto(task);
+                    taskReturnList.Add(taskReturnItem);
                 }
 
-                entityEmployeeReturn.EmployeeTasks = employeeTaskFromEmployeeList;
+                entityEmployeeReturn.EmployeeTasks = taskReturnList;
 
                 return entityEmployeeReturn;
             }
@@ -158,7 +161,6 @@ namespace CadastrosEmpresas.API.Services
 
                 employeeDto.CompaniesCNPJ = existingEmployee.CompaniesCNPJ;
                 employeeDto.DepartmentId = existingEmployee.DepartmentId;
-                //employeeDto.CPF = existingEmployee.CPF; -> só irá permitir caso o cpf ainda permaneça o mesmo
                 existingEmployee.MapFromDto(employeeDto);
                 _employeeRepository.updateEmployee(existingEmployee);
             }

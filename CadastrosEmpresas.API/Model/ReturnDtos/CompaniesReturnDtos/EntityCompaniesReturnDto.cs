@@ -1,7 +1,5 @@
-﻿using CadastrosEmpresas.API.Model.Domain.Entities;
-using CadastrosEmpresas.API.Model.ReturnDtos.DepartmentReturnDtos;
+﻿using CadastrosEmpresas.API.Model.ReturnDtos.DepartmentReturnDtos;
 using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos;
-using System.ComponentModel.DataAnnotations;
 
 namespace CadastrosEmpresas.API.Model.ReturnDtos.CompaniesReturnDtos
 {

@@ -35,7 +35,6 @@ namespace CadastrosEmpresas.API.Repositories
 
             foreach (Model.Domain.Entities.Task task in tasks)
             {
-                //task.Department = getDepartment(task.DepartmentId);
                 task.EmployeeTasks = getEmployeeTaskTaskId(task.Id);
             }
 
@@ -45,6 +44,11 @@ namespace CadastrosEmpresas.API.Repositories
         public Department getDepartment(int id)
         {
             return _connectionContext.Departments.Find(id);
+        }
+
+        public Employee getEmployee(Guid employeeId)
+        {
+            return _connectionContext.Employees.Find(employeeId);
         }
 
         public List<EmployeeTask> getEmployeeTaskTaskId(Guid taskId)
@@ -62,7 +66,6 @@ namespace CadastrosEmpresas.API.Repositories
 
             if ( task != null )
             {
-                //task.Department = getDepartment(task.DepartmentId);
                 task.EmployeeTasks = getEmployeeTaskTaskId(id);
             }
             

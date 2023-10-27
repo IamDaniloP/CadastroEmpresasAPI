@@ -13,5 +13,6 @@ namespace CadastrosEmpresas.API.Repositories.Interfaces
         public Department getDepartment(int id);
 
         public List<EmployeeTask> getEmployeeTaskTaskId(Guid taskId);
+        public Employee getEmployee(Guid employeeId);
     }
 }

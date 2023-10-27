@@ -86,6 +86,11 @@ namespace CadastrosEmpresas.API.Repositories
             return employeeTasks;
         }
 
+        public Model.Domain.Entities.Task getTask(Guid taskId)
+        {
+            return _connectionContext.Tasks.Find(taskId);
+        }
+
         public void updateEmployee(Employee employee)
         {
             _connectionContext.SaveChanges();

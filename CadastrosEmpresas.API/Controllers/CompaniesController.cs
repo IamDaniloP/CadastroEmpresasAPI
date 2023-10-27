@@ -64,7 +64,7 @@ namespace CadastrosEmpresas.API.Controllers
             try
             {
                 EntityCompaniesReturnDto companies = _companiesService.getCompanies(cnpj);
-                return Ok(JsonSerializationHelper.SerializeObject(companies));
+                return Ok(companies);
             }
             catch (Exception ex)
             {

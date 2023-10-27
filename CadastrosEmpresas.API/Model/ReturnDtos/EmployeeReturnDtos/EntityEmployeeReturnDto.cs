@@ -1,8 +1,6 @@
-﻿using CadastrosEmpresas.API.Model.Domain.Entities;
-using CadastrosEmpresas.API.Model.ReturnDtos.CompaniesReturnDtos;
+﻿using CadastrosEmpresas.API.Model.ReturnDtos.CompaniesReturnDtos;
 using CadastrosEmpresas.API.Model.ReturnDtos.DepartmentReturnDtos;
-using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeTaskReturnDtos;
-using System.ComponentModel.DataAnnotations.Schema;
+using CadastrosEmpresas.API.Model.ReturnDtos.TaskReturnDtos;
 
 namespace CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos
 {
@@ -19,7 +17,7 @@ namespace CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos
         public CompaniesReturnDto Companies { get; set; }
         public DepartmentReturnDto Department { get; set; }
 
-        public List<EmployeeTaskFromEmployeeReturnDto> EmployeeTasks { get; set; }
+        public List<TaskReturnDto> EmployeeTasks { get; set; }
 
         public void MapFromEntityReturnDto(Employee employee)
         {

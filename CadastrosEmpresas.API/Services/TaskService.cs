@@ -1,6 +1,6 @@
 ﻿using CadastrosEmpresas.API.Model.Domain.Entities;
 using CadastrosEmpresas.API.Model.Dtos;
-using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeTaskReturnDtos;
+using CadastrosEmpresas.API.Model.ReturnDtos.EmployeeReturnDtos;
 using CadastrosEmpresas.API.Model.ReturnDtos.TaskReturnDtos;
 using CadastrosEmpresas.API.Repositories.Interfaces;
 using CadastrosEmpresas.API.Services.Interfaces;
@@ -49,7 +49,7 @@ namespace CadastrosEmpresas.API.Services
 
             foreach (Model.Domain.Entities.Task taskItem in taskList)
             {
-                List<EmployeeTaskFromTaskReturnDto> employeeTaskFromTaskReturnList = new List<EmployeeTaskFromTaskReturnDto>();
+                List<EmployeeReturnDto> employeeReturnList = new List<EmployeeReturnDto>();
                 EntityTaskReturnDto entityTaskReturnItem = new EntityTaskReturnDto();
 
                 taskItem.Department = _taskRepository.getDepartment(taskItem.DepartmentId);
@@ -57,13 +57,14 @@ namespace CadastrosEmpresas.API.Services
 
                 foreach (EmployeeTask employeeTaskItem in taskItem.EmployeeTasks)
                 {
-                    EmployeeTaskFromTaskReturnDto employeeTaskFromTaskReturnItem = new EmployeeTaskFromTaskReturnDto();
+                    EmployeeReturnDto employeeReturnItem = new EmployeeReturnDto();
+                    Employee employee = _taskRepository.getEmployee(employeeTaskItem.EmployeeId);
 
-                    employeeTaskFromTaskReturnItem.MapFromReturnDto(employeeTaskItem);
-                    employeeTaskFromTaskReturnList.Add(employeeTaskFromTaskReturnItem);
+                    employeeReturnItem.MapFromReturnDto(employee);
+                    employeeReturnList.Add(employeeReturnItem);
                 }
 
-                entityTaskReturnItem.EmployeeTasks = employeeTaskFromTaskReturnList;
+                entityTaskReturnItem.TasksEmployee = employeeReturnList;
                 entityTaskReturnList.Add(entityTaskReturnItem);
             }
 
@@ -78,20 +79,21 @@ namespace CadastrosEmpresas.API.Services
 
                 EntityTaskReturnDto entityTaskReturn = new EntityTaskReturnDto();
 
-                List<EmployeeTaskFromTaskReturnDto> employeeTaskFromTaskReturnList = new List<EmployeeTaskFromTaskReturnDto>();
+                List<EmployeeReturnDto> employeeReturnList = new List<EmployeeReturnDto>();
                 
                 task.Department = _taskRepository.getDepartment(task.DepartmentId);
                 entityTaskReturn.MapFromEntityReturnDto(task);
 
                 foreach (EmployeeTask employeeTaskItem in task.EmployeeTasks)
                 {
-                    EmployeeTaskFromTaskReturnDto employeeTaskFromTaskItem = new EmployeeTaskFromTaskReturnDto();
+                    EmployeeReturnDto employeeReturnItem = new EmployeeReturnDto();
+                    Employee employee = _taskRepository.getEmployee(employeeTaskItem.EmployeeId);
 
-                    employeeTaskFromTaskItem.MapFromReturnDto(employeeTaskItem);
-                    employeeTaskFromTaskReturnList.Add(employeeTaskFromTaskItem);
+                    employeeReturnItem.MapFromReturnDto(employee);
+                    employeeReturnList.Add(employeeReturnItem);
                 }
 
-                entityTaskReturn.EmployeeTasks = employeeTaskFromTaskReturnList;
+                entityTaskReturn.TasksEmployee = employeeReturnList;
 
                 return entityTaskReturn;
             }
