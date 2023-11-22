@@ -1491,11 +1491,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DIDO\\Desktop\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\CadastrosEmpresas.API.csproj",
+      "projectUniqueName": "C:\\Users\\DIDO\\Desktop\\Projetos\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\CadastrosEmpresas.API.csproj",
       "projectName": "CadastrosEmpresas.API",
-      "projectPath": "C:\\Users\\DIDO\\Desktop\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\CadastrosEmpresas.API.csproj",
+      "projectPath": "C:\\Users\\DIDO\\Desktop\\Projetos\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\CadastrosEmpresas.API.csproj",
       "packagesPath": "C:\\Users\\DIDO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DIDO\\Desktop\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\obj\\",
+      "outputPath": "C:\\Users\\DIDO\\Desktop\\Projetos\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DIDO\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kzjXjpOXtndfyoXHO1wbwCfwz823MBvSEph9pB0Nv3+I1cnBUtr2Pe/+CJYbhhheZkM1jlZwGHQkAniFjsIzWw==",
+  "dgSpecHash": "z4uIXzs0aZrw9HpcIcxM9veKpNnTE1mqfZZwJWjh/zI11t7lttocKVwXvzLasF1fmRkjLKslZEJR2b6JepjWxA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\DIDO\\Desktop\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\CadastrosEmpresas.API.csproj",
+  "projectFilePath": "C:\\Users\\DIDO\\Desktop\\Projetos\\CadastroEmpresasAPI\\CadastrosEmpresas.API\\CadastrosEmpresas.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DIDO\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\DIDO\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.12\\microsoft.aspnetcore.openapi.7.0.12.nupkg.sha512",
